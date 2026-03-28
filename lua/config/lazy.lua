@@ -13,7 +13,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
-
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
@@ -21,7 +20,7 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        -- colorscheme = "tokyonight",
+        -- colorscheme = "adwaita",
       },
     },
     -- import/override with your plugins

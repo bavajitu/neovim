@@ -36,49 +36,6 @@ return {
       },
     },
   },
-  -- status line
-  {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = {
-      options = {
-        theme = {
-          normal = {
-            a = { bg = "none" },
-            b = { bg = "none" },
-            c = { bg = "none" },
-          },
-          insert = {
-            a = { bg = "none" },
-            b = { bg = "none" },
-            c = { bg = "none" },
-          },
-          visual = {
-            a = { bg = "none" },
-            b = { bg = "none" },
-            c = { bg = "none" },
-          },
-          replace = {
-            a = { bg = "none" },
-            b = { bg = "none" },
-            c = { bg = "none" },
-          },
-          command = {
-            a = { bg = "none" },
-            b = { bg = "none" },
-            c = { bg = "none" },
-          },
-          inactive = {
-            a = { bg = "none" },
-            b = { bg = "none" },
-            c = { bg = "none" },
-          },
-        },
-        component_separators = "",
-        section_separators = "",
-      },
-    },
-  },
   -- filename
   {
     "b0o/incline.nvim",
@@ -109,23 +66,6 @@ return {
         end,
       })
     end,
-  },
-  -- blankspace
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {
-      indent = {
-        char = "▹", -- or ▹ ▶ ▷
-        tab_char = "▹",
-      },
-      scope = {
-        enabled = false,
-        char = "▹",
-        show_start = false,
-        show_end = false,
-      },
-    },
   },
   -- lightbuld
   {
@@ -169,5 +109,9 @@ return {
     "stevearc/oil.nvim",
     opts = {},
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional (icons)
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    enabled = false,
   },
 }

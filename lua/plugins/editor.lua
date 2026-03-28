@@ -379,4 +379,9 @@ return {
       end)
     end,
   },
+  -- Vim-fugitive:
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+  },
 }
