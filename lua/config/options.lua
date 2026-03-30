@@ -1,10 +1,28 @@
 -- Loading the colorscheme:
 vim.cmd("colorscheme brellary")
 
+-- Mouse (disabled)
+vim.opt.mouse = ""
+
 -- Term GUI colors
 vim.opt.termguicolors = true
 
-vim.opt.mouse = ""
+-- Tabs and indentation
+vim.opt.tabstop = 4 -- 4 spaces for tabs
+vim.opt.shiftwidth = 4 -- Indentation width
+vim.opt.expandtab = true -- Use spaces, not tabs
+vim.opt.smartindent = true -- Auto-indent
+vim.opt.autoindent = true
+
+-- Line wrapping
+vim.opt.wrap = false
+vim.opt.linebreak = false
+
+-- Performance
+vim.opt.timeoutlen = 300 -- Faster key sequence timeout
+vim.opt.ttimeoutlen = 50 -- Terminal key sequence timeout
+vim.opt.updatetime = 250 -- Faster CursorHold events
+vim.opt.redrawtime = 1500
 
 -- LSP diagnostics
 vim.cmd("highlight DiagnosticUnderlineError gui=undercurl guisp=#FF0000")
@@ -43,7 +61,7 @@ end
 vim.o.statusline = table.concat({
   " %f", -- file
   " %m ", -- [+] modified
-  "%{v:lua.stl_branch()}", -- [main]
+  "%{v:lua.stl_branch()}", -- main
   " %{v:lua.stl_errors()}", -- ✗ if errors
   "%=", -- right align
   "%p%%  ", -- 52%

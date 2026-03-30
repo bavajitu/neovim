@@ -3,6 +3,10 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-file-browser.nvim",
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
     },
     keys = {
       {
@@ -82,15 +86,18 @@ return {
             grouped = true,
             previewer = false,
             initial_mode = "normal",
-            layout_config = { height = 40 },
+            layout_config = { height = 30 },
           })
         end,
       },
     },
+    opts = {},
     config = function(_, opts)
       local telescope = require("telescope")
       local actions = require("telescope.actions")
       local fb_actions = require("telescope").extensions.file_browser.actions
+      opts = opts or {} -- critical
+      opts.defaults = opts.defaults or {} -- critical
 
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
         wrap_results = true,
@@ -348,13 +355,6 @@ return {
     end,
   },
   {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-
-    -- Completion for `blink.cmp`
-    dependencies = { "saghen/blink.cmp" },
-  },
-  {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
     dependencies = {
@@ -384,4 +384,6 @@ return {
     "tpope/vim-fugitive",
     lazy = false,
   },
+  -- Markdown
+  { "preservim/vim-markdown" },
 }

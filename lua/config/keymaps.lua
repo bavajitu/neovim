@@ -9,7 +9,7 @@ map("n", "+", "<C-a>", opts)
 map("n", "-", "<C-x>", opts)
 
 -- Delete word backwards
-map("n", "dw", "vb_d", opts)
+map("n", "dw", '"_daw', opts)
 
 -- Select all
 map("n", "<C-a>", "ggVG", opts)
@@ -43,12 +43,6 @@ map("n", "<C-j>", function()
   vim.diagnostic.goto_next()
 end, opts)
 
--- File tree (LazyVim / Neo-tree)
-map("n", "<leader>n", ":Neotree toggle<CR>", opts)
-
--- Command palette
-map("n", "<Leader>p", ":Commands<CR>", opts)
-
 -- LaTeX build + open (async viewer)
 map("n", "<leader>bd", function()
   vim.cmd("write")
@@ -71,7 +65,7 @@ map("n", "J", "<C-d>", opts)
 vim.api.nvim_set_keymap(
   "n",
   "<F5>",
-  ":!g++ -std=c++17 -Wall -Wshadow -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -o %:r %<CR>",
+  ":!g++ -std=c++23 -Wall -Wshadow -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -o %:r %<CR>",
   { noremap = true, silent = true }
 )
 

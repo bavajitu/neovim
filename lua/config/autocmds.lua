@@ -31,34 +31,18 @@ vim.opt.makeprg = "clang -Wall -Wextra -Wpedantic -g % -o %<"
 -- Set default shell for neovim
 vim.o.shell = "/usr/bin/zsh"
 
--- indent-blankline configuration to stop bugging when colorscheme changes.
-vim.api.nvim_create_autocmd("ColorScheme", {
+-- Auto-resize splits when window is resized
+vim.api.nvim_create_autocmd("VimResized", {
+  group = general,
+  pattern = "*",
+  command = "tabdo wincmd =",
+})
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = general,
+  pattern = "*",
   callback = function()
-    -- required highlight groups for indent-blankline
-    vim.api.nvim_set_hl(0, "IblIndent", { fg = "#3b4252" })
-    vim.api.nvim_set_hl(0, "IblScope", { fg = "#81a1c1" })
-
-    local groups = {
-      "Normal",
-      "NormalNC",
-      "NormalFloat",
-      "FloatBorder",
-      "SignColumn",
-      "LineNr",
-      "CursorLineNr",
-      "EndOfBuffer",
-      "StatusLine",
-      "StatusLineNC",
-      "VertSplit",
-      "WinSeparator",
-      "Pmenu",
-      "PmenuSel",
-      "TelescopeNormal",
-      "TelescopeBorder",
-    }
-
-    for _, g in ipairs(groups) do
-      vim.api.nvim_set_hl(0, g, { bg = "none" })
-    end
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
   end,
 })
