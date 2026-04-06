@@ -30,7 +30,7 @@ function M.setup(p)
   set(0, "Function", { fg = p.blue })
 
   set(0, "Statement", { fg = p.blue })
-  set(0, "Keyword", { fg = p.blue, italic = false })
+  set(0, "Keyword", { fg = p.blue, italic = true })
 
   set(0, "Type", { fg = p.purple })
   set(0, "Special", { fg = p.cyan })
@@ -53,6 +53,11 @@ function M.setup(p)
   set(0, "@string", { fg = p.orange })
   set(0, "@type", { fg = p.purple })
   set(0, "@constant", { fg = p.cyan })
+
+  -- LaTeX math delimiters ($$, \(, \))
+  set(0, "@markup.math", { fg = p.cyan, italic = true })
+  set(0, "texMathDelim", { fg = p.cyan })
+  set(0, "texMathZone", { fg = p.fg_dim })
 end
 
 return M

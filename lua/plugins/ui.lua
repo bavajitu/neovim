@@ -110,8 +110,26 @@ return {
     opts = {},
     dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional (icons)
   },
+
+  -- statusline
   {
     "nvim-lualine/lualine.nvim",
-    enabled = false,
+    event = "VeryLazy",
+    opts = {
+      options = {
+        theme = "auto",
+      },
+    },
+  },
+
+  -- animation
+  {
+    "nvim-mini/mini.animate",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      opts.scroll = {
+        enable = false,
+      }
+    end,
   },
 }

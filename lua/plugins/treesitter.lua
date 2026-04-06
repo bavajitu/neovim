@@ -3,43 +3,43 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        -- core
-        "c",
-        "cmake",
-        "cpp",
-        "svelte",
-        "rust",
-        "go",
-        "latex",
-        "lua",
-        "vim",
-        "vimdoc",
-        "query",
+        ensure_installed = {
+          -- core
+          "c",
+          "cpp",
+          "cmake",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
 
-        -- scripting / general
-        "bash",
-        "python",
-        "javascript",
-        "typescript",
-        "tsx",
-        "json",
-        "yaml",
-        "toml",
+          -- systems / compiled
+          "rust",
+          "go",
+          "java",
+          "asm",
 
-        -- web
-        "html",
-        "css",
+          -- scripting
+          "bash",
+          "python",
 
-        -- systems / JVM
-        "java",
-        "kotlin",
+          -- web
+          "html",
+          "css",
+          "json",
+          "yaml",
+          "toml",
 
-        -- misc common
-        "markdown",
-        "markdown_inline",
-        "regex",
-        "dockerfile",
-        "gitignore",
+          -- other
+          "latex",
+
+          -- misc
+          "markdown",
+          "markdown_inline",
+          "regex",
+          "dockerfile",
+          "gitignore",
+        },
       },
       highlight = {
         additional_vim_regex_highlighting = false,

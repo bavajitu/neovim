@@ -1,5 +1,5 @@
 -- Loading the colorscheme:
-vim.cmd("colorscheme brellary")
+-- vim.cmd("colorscheme brellary")
 
 -- Mouse (disabled)
 vim.opt.mouse = ""

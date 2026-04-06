@@ -12,7 +12,7 @@ return {
         "clangd",
         "rust-analyzer",
         "gopls",
-        -- "marksman",
+        "marksman",
         "impl",
         "codelldb",
         "eslint-lsp",

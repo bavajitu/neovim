@@ -76,3 +76,9 @@ vim.keymap.set("i", "<S-CR>", "<Esc>o", { noremap = true, silent = true })
 -- Map keys to move selected lines up and down in visual mode
 vim.api.nvim_set_keymap("v", "<C-S-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<C-S-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+-- Inc Rename:
+vim.keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+vim.keymap.set("v", "<leader>rn", ":IncRename ")
