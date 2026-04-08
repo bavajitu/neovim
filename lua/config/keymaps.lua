@@ -82,3 +82,98 @@ vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
 vim.keymap.set("v", "<leader>rn", ":IncRename ")
+
+-- The most coolest part of this configuration: Sessions!
+-- Session storage location
+local session_dir = vim.fn.stdpath("data") .. "/sessions/"
+vim.fn.mkdir(session_dir, "p")
+
+-- Save session using <leader>ns
+vim.keymap.set("n", "<leader>ns", function()
+  vim.ui.input({ prompt = "Session name: " }, function(input)
+    if not input or input == "" then
+      return
+    end
+    local file = session_dir .. input .. ".vim"
+    vim.cmd("mksession! " .. vim.fn.fnameescape(file))
+    print("Saved session: " .. input)
+  end)
+end)
+
+-- Load a session using Telescope with <leader>ls
+vim.keymap.set("n", "<leader>ls", function()
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+
+  local sessions = vim.fn.glob(session_dir .. "*.vim", false, true)
+
+  pickers
+    .new({}, {
+      prompt_title = "Sessions",
+      finder = finders.new_table({
+        results = sessions,
+        entry_maker = function(entry)
+          return {
+            value = entry,
+            display = vim.fn.fnamemodify(entry, ":t:r"),
+            ordinal = entry,
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, map)
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          vim.cmd("source " .. vim.fn.fnameescape(selection.value))
+        end)
+        return true
+      end,
+    })
+    :find()
+end)
+
+-- Delete a session using <leader> ds
+vim.keymap.set("n", "<leader>ds", function()
+  local pickers = require("telescope.pickers")
+  local finders = require("telescope.finders")
+  local conf = require("telescope.config").values
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+
+  local sessions = vim.fn.glob(session_dir .. "*.vim", false, true)
+
+  pickers
+    .new({}, {
+      prompt_title = "Delete Session",
+      finder = finders.new_table({
+        results = sessions,
+        entry_maker = function(entry)
+          return {
+            value = entry,
+            display = vim.fn.fnamemodify(entry, ":t:r"),
+            ordinal = entry,
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, map)
+        actions.select_default:replace(function()
+          local selection = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+
+          vim.ui.select({ "No", "Yes" }, { prompt = "Delete session?" }, function(choice)
+            if choice == "Yes" then
+              vim.fn.delete(selection.value)
+              print("Deleted: " .. vim.fn.fnamemodify(selection.value, ":t:r"))
+            end
+          end)
+        end)
+        return true
+      end,
+    })
+    :find()
+end)
