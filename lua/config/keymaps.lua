@@ -65,7 +65,7 @@ map("n", "J", "<C-d>", opts)
 vim.api.nvim_set_keymap(
   "n",
   "<F5>",
-  ":!g++ -std=c++23 -Wall -Wshadow -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -o %:r %<CR>",
+  ":!g++ -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -o %:r %<CR>",
   { noremap = true, silent = true }
 )
 
