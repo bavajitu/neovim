@@ -11,7 +11,6 @@ return {
         "css-lsp",
         "clangd",
         "rust-analyzer",
-        "gopls",
         "marksman",
         "impl",
         "codelldb",
@@ -96,6 +95,77 @@ return {
           clangdFileStatus = true,
         },
       })
+
+      -- Rust
+      vim.g.rustaceanvim = {
+        server = {
+          capabilities = capabilities,
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+                runBuildScripts = true,
+              },
+              checkOnSave = true,
+              check = {
+                command = "clippy",
+                extraArgs = { "--no-deps" },
+              },
+              procMacro = {
+                enable = true,
+              },
+              diagnostics = {
+                enable = true,
+                experimental = {
+                  enable = true,
+                },
+              },
+              inlayHints = {
+                bindingModeHints = { enable = false },
+                chainingHints = { enable = true },
+                closingBraceHints = { enable = true, minLines = 25 },
+                closureReturnTypeHints = { enable = "with_block" },
+                lifetimeElisionHints = { enable = "skip_trivial" },
+                parameterHints = { enable = true },
+                reborrowHints = { enable = "mutable" },
+                typeHints = {
+                  enable = true,
+                  hideClosureInitialization = false,
+                  hideNamedConstructor = false,
+                },
+              },
+              completion = {
+                callable = {
+                  snippets = "fill_arguments",
+                },
+                postfix = {
+                  enable = true,
+                },
+              },
+              hover = {
+                actions = {
+                  enable = true,
+                },
+              },
+              lens = {
+                enable = true,
+                implementations = { enable = true },
+                references = { enable = true },
+                run = { enable = true },
+                debug = { enable = true },
+              },
+              assist = {
+                importGranularity = "module",
+                importPrefix = "by_self",
+              },
+              files = {
+                excludeDirs = { "target", "node_modules" },
+              },
+            },
+          },
+        },
+      }
 
       -- LaTeX
       lspconfig.texlab.setup({

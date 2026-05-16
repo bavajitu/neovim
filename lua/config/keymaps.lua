@@ -44,10 +44,38 @@ map("n", "<C-j>", function()
 end, opts)
 
 -- LaTeX build + open (async viewer)
-map("n", "<leader>bd", function()
+local function build_pdf()
+  local file = vim.fn.expand("%:p")
+  local dir = vim.fn.expand("%:p:h")
+
+  vim.system({ "latexmk", "-pdf", "-interaction=nonstopmode", file }, {
+    cwd = dir,
+  }, function(res)
+    if res.code ~= 0 then
+      vim.schedule(function()
+        vim.notify("LaTeX build failed", vim.log.levels.ERROR)
+      end)
+    end
+  end)
+end
+
+local function open_pdf()
+  local pdf = vim.fn.expand("%:r") .. ".pdf"
+
+  -- reuse existing zathura instance if possible
+  vim.system({ "pgrep", "zathura" }, {}, function(out)
+    if out.code == 0 then
+      vim.system({ "zathura", pdf })
+    else
+      vim.system({ "zathura", pdf }, { detach = true })
+    end
+  end)
+end
+
+vim.keymap.set("n", "<leader>bd", function()
   vim.cmd("write")
-  vim.fn.jobstart({ "pdflatex", vim.fn.expand("%") })
-  vim.fn.jobstart({ "zathura", vim.fn.expand("%:r") .. ".pdf" }, { detach = true })
+  build_pdf()
+  open_pdf()
 end, opts)
 
 -- oil.nvim toggle
@@ -64,7 +92,7 @@ map("n", "J", "<C-d>", opts)
 -- Auto-compile .cpp file:
 vim.api.nvim_set_keymap(
   "n",
-  "<F5>",
+  "<F4>",
   ":!g++ -std=c++20 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -g -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -o %:r %<CR>",
   { noremap = true, silent = true }
 )
